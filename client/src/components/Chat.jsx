@@ -10,7 +10,9 @@ const Chat = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await axios.get("http://localhost:10000/api/messages");
+        const response = await axios.get(
+          "https://chat-1-7buy.onrender.com/api/messages",
+        );
         setMessages(response.data);
       } catch (error) {
         console.error("Failed to fetch messages:", error);
@@ -19,7 +21,7 @@ const Chat = () => {
 
     fetchMessages();
 
-    const socket = new WebSocket("ws://localhost:10000");
+    const socket = new WebSocket("ws:https://chat-1-7buy.onrender.com");
     socket.onmessage = (event) => {
       const messageData = JSON.parse(event.data);
       if (messageData.type === "new") {
@@ -40,7 +42,7 @@ const Chat = () => {
     if (content.trim() === "") return;
 
     try {
-      await axios.post("http://localhost:10000/api/messages", {
+      await axios.post("https://chat-1-7buy.onrender.com/api/messages", {
         content,
       });
 
@@ -56,7 +58,7 @@ const Chat = () => {
 
   const handleDeleteMessage = async (id) => {
     try {
-      await axios.delete(`http://localhost:10000/api/messages/${id}`);
+      await axios.delete(`https://chat-1-7buy.onrender.com/api/messages/${id}`);
       setMessages((prev) => prev.filter((msg) => msg._id !== id));
 
       if (ws && ws.readyState === WebSocket.OPEN) {

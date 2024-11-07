@@ -21,7 +21,7 @@ const Chat = () => {
 
     fetchMessages();
 
-    const socket = new WebSocket("ws://localhost:10000");
+    const socket = new WebSocket("wss://chat-1-7buy.onrender.com");
     socket.onmessage = (event) => {
       const messageData = JSON.parse(event.data);
       if (messageData.type === "new") {
